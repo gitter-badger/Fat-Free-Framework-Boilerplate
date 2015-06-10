@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-class Index
+class Index extends \Controller
 {
     public function index(\Base $fw, $params)
     {
