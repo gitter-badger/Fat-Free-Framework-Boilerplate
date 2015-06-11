@@ -17,4 +17,12 @@ $fw->set('db.instance', new \DB\SQL(
     $fw->get('db.pass')
 ));
 
+if ($fw->get('DEBUG') > 3) {
+    require('app/helper/PhpConsole/__autoload.php');
+    $handler = PhpConsole\Handler::getInstance();
+    $handler->start(); // Стартуем обработчик PHP ошибок и исключений
+    $handler->getConnector()->setSourcesBasePath($_SERVER['DOCUMENT_ROOT']); // so files paths on client will be shorter (optional)
+    $fw->set('debugger', $handler);
+}
+
 $fw->run();
