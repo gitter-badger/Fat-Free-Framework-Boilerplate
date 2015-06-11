@@ -1,0 +1,11 @@
+{
+  "authors": [
+    {
+      "name": "Maxim Zavitaev",
+      "email": "vskweb@gmail.com"
+    }
+  ],
+  "require": {
+    "php-console/php-console": "3.*"
+  }
+}

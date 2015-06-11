@@ -1,5 +1,7 @@
 <?php
 
+require_once('vendor/autoload.php');
+
 /** @var Base $fw */
 $fw = require('lib/base.php');
 
@@ -17,8 +19,7 @@ $fw->set('db.instance', new \DB\SQL(
     $fw->get('db.pass')
 ));
 
-if ($fw->get('DEBUG') > 3) {
-    require('app/helper/PhpConsole/__autoload.php');
+if ($fw->get('DEBUG') > 2) {
     $handler = PhpConsole\Handler::getInstance();
     $handler->start(); // Стартуем обработчик PHP ошибок и исключений
     $handler->getConnector()->setSourcesBasePath($_SERVER['DOCUMENT_ROOT']); // задаем путь к папке исходников (опционально)
