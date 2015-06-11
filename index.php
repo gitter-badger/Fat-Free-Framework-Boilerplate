@@ -21,7 +21,7 @@ if ($fw->get('DEBUG') > 3) {
     require('app/helper/PhpConsole/__autoload.php');
     $handler = PhpConsole\Handler::getInstance();
     $handler->start(); // Стартуем обработчик PHP ошибок и исключений
-    $handler->getConnector()->setSourcesBasePath($_SERVER['DOCUMENT_ROOT']); // so files paths on client will be shorter (optional)
+    $handler->getConnector()->setSourcesBasePath($_SERVER['DOCUMENT_ROOT']); // задаем путь к папке исходников (опционально)
     $fw->set('debugger', $handler);
 }
 
