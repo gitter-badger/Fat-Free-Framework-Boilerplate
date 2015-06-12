@@ -18,6 +18,8 @@ $fw->set('db.instance', new \DB\SQL(
     $fw->get('db.pass')
 ));
 
+\Helper\Settings::instance(); // Получаем настройки из БД
+
 // Загружаем актуального пользователя, если авторизирован
 $user = new \Model\User();
 $user->loadCurrent();
