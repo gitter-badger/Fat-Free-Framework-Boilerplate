@@ -18,8 +18,9 @@ $fw->set('db.instance', new \DB\SQL(
     $fw->get('db.pass')
 ));
 
-\Helper\Settings::instance()->set('title', 'This is Title');
-\Helper\Settings::instance()->delete('title');
+// Загружаем актуального пользователя, если авторизирован
+$user = new \Model\User();
+$user->loadCurrent();
 
 $fw->run();
 

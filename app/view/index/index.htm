@@ -5,9 +5,19 @@
 </head>
 <body>
 <nav>
-    <ul>
-        <li><a href="/login">Авторизация</a></li>
-    </ul>
+    <check if="{{ @user.id }}">
+        <true>
+            <p>Добро пожаловать, {{ @user.username }}</p>
+            <ul>
+                <li><a href="/logout">Выйти</a></li>
+            </ul>
+        </true>
+        <false>
+            <ul>
+                <li><a href="/login">Авторизироваться</a></li>
+            </ul>
+        </false>
+    </check>
 </nav>
 <h1>{{ @site.title }}</h1>
 
