@@ -35,8 +35,14 @@ class Index extends \Controller
             $user->load(array('login = ? AND deleted_date IS NULL', $login));
         }
 
-        if (Security::instance()->password_verify($password, $user->password)) {
-            $fw->reroute('/');
+        if ($user->id) {
+            if (Security::instance()->password_verify($password, $user->password)) {
+                $fw->reroute('/');
+            } else {
+                $fw->set('error', 'Не верно введен пароль');
+            }
+        } else {
+            $fw->set('error', 'Пользователь с данным логином или E-Mail не найден');
         }
 
         $this->_render('index/login.htm');
