@@ -1,4 +1,5 @@
 <?php
+$time = microtime(true);
 
 /** @var Base $fw */
 $fw = require('lib/base.php');
@@ -21,3 +22,6 @@ $fw->set('db.instance', new \DB\SQL(
 \Helper\Settings::instance()->delete('title');
 
 $fw->run();
+
+echo round((microtime(true) - $time) * 1000, 0) . ' ms' . '<br/>';
+echo round(memory_get_peak_usage(true) / 1024, 0) . ' кБ';
