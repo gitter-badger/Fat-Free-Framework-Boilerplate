@@ -14,22 +14,22 @@ class Index extends \Controller
 
         $this->_render('index/index.htm');
     }
-    
+
     public function login(\Base $fw, $params)
     {
         $this->_render('index/login.htm');
     }
-    
+
     public function loginPost(\Base $fw, $params)
     {
         
     }
-    
+
     public function registration(\Base $fw, $params)
     {
-        
+
     }
-    
+
     public function registrationPost(\Base $fw, $params)
     {
 
