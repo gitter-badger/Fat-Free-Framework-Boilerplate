@@ -13,7 +13,7 @@ class Settings extends \Prefab
         $this->db = $this->fw->get('db.instance');
 
         if (!$this->cache->exists('settings')) {
-            $result = $this->db->exec("SELECT * FROM settings", null, $this->fw->get('cache_expire.db'));
+            $result = $this->db->exec("SELECT * FROM settings");
             foreach ($result as $item) {
                 $this->_settings[$item['key']] = json_decode($item['value'], true) ?: $item['value'];
             }
