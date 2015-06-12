@@ -2,6 +2,9 @@
 
 namespace Controller;
 
+use Helper\Security;
+use Model\User;
+
 class Index extends \Controller
 {
     public function index(\Base $fw, $params)
@@ -22,7 +25,21 @@ class Index extends \Controller
 
     public function loginPost(\Base $fw, $params)
     {
-        
+        $login = $fw->get('POST.login');
+        $password = $fw->get('POST.password');
+        $user = new User();
+
+        if (strpos($login, '@')) {
+            $user->load(array('email = ? AND deleted_date IS NULL', $login));
+        } else {
+            $user->load(array('login = ? AND deleted_date IS NULL', $login));
+        }
+
+        if (Security::instance()->password_verify($password, $user->password)) {
+            $fw->reroute('/');
+        }
+
+        $this->_render('index/login.htm');
     }
 
     public function registration(\Base $fw, $params)
