@@ -27,5 +27,6 @@ if ($fw->get('DEBUG') > 2) {
 }
 
 \Helper\Settings::instance()->set('title', 'This is Title');
+\Helper\Settings::instance()->delete('title');
 
 $fw->run();

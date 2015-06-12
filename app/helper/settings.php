@@ -47,6 +47,26 @@ class Settings extends \Prefab
     }
 
     /**
+     * Получаем значение по ключу
+     * @param $key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        return $this->_settings[$key];
+    }
+
+    /**
+     * Удаляем поле по ключу
+     * @param $key
+     */
+    public function delete($key)
+    {
+        $this->db->exec("DELETE FROM settings WHERE `key` = :key", array(':key' => $key));
+        $this->clearCache();
+    }
+
+    /**
      * Очистка кеша настроек
      * @return bool
      */
