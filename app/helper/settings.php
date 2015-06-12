@@ -41,7 +41,6 @@ class Settings extends \Prefab
             $query = "INSERT INTO settings VALUES (:key, :value)";
         }
 
-        $this->fw->debugger->debug($query); // TODO: пример использования класса дебагинга
         $this->db->exec($query, array(':key' => $key, ':value' => $value));
         $this->clearCache();
     }
@@ -72,10 +71,6 @@ class Settings extends \Prefab
      */
     public function clearCache()
     {
-//        TODO: пример использования класса дебагинга
-        if ($this->cache->clear('settings')) {
-            $this->fw->debugger->debug('Кеш очищен');
-            return true;
-        }
+        return $this->cache->clear('settings');
     }
 }
