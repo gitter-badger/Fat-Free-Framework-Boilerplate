@@ -1,0 +1,17 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ @site.title }}</title>
+</head>
+<body>
+<h1>{{ @site.title }}</h1>
+
+<p>{{ @site.description }}</p>
+
+<ul>
+    <repeat group="{{ @list }}" value="{{ @item }}">
+        <li>{{ @item }}</li>
+    </repeat>
+</ul>
+</body>
+</html>
