@@ -26,4 +26,6 @@ if ($fw->get('DEBUG') > 2) {
     $fw->set('debugger', $handler);
 }
 
+\Helper\Settings::instance()->set('title', 'This is Title');
+
 $fw->run();

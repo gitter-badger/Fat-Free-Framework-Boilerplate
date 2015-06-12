@@ -23,4 +23,38 @@ class Settings extends \Prefab
         }
         $this->fw->mset($this->_settings);
     }
+
+    /**
+     * Сохраняем или обновляем значение
+     * @param $key
+     * @param null $value
+     */
+    public function set($key, $value = null)
+    {
+        if (is_array($value)) {
+            $value = json_encode($value);
+        }
+
+        if (array_key_exists($key, $this->_settings)) {
+            $query = "UPDATE settings SET `value` = :value WHERE `key` = :key";
+        } else {
+            $query = "INSERT INTO settings VALUES (:key, :value)";
+        }
+
+        $this->fw->debugger->debug($query);
+        $this->db->exec($query, array(':key' => $key, ':value' => $value));
+        $this->clearCache();
+    }
+
+    /**
+     * Очистка кеша настроек
+     * @return bool
+     */
+    public function clearCache()
+    {
+        if ($this->cache->clear('settings')) {
+            $this->fw->debugger->debug('Кеш очищен');
+            return true;
+        }
+    }
 }
