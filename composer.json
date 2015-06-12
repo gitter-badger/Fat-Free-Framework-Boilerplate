@@ -6,6 +6,7 @@
     }
   ],
   "require": {
-    "php-console/php-console": "3.*"
+    "php-console/php-console": "3.*",
+    "fenom/fenom": "2.*"
   }
 }

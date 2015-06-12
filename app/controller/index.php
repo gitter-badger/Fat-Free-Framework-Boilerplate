@@ -11,7 +11,9 @@ class Index extends \Controller
             'Item Two',
             'Other Item'
         ));
-        $this->_render('index/index.htm');
+
+        $fw->template->display('index/index.tpl', $fw->hive());
+//        $this->_render('index/index.htm');
     }
     
     public function login(\Base $fw, $params)

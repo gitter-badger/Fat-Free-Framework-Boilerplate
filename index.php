@@ -19,6 +19,8 @@ $fw->set('db.instance', new \DB\SQL(
     $fw->get('db.pass')
 ));
 
+$fw->set('template', Fenom::factory($fw->get('UI'), $fw->get('TEMP')));
+
 if ($fw->get('DEBUG') > 2) {
     $handler = PhpConsole\Handler::getInstance();
     $handler->start(); // Стартуем обработчик PHP ошибок и исключений
