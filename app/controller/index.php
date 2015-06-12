@@ -17,7 +17,7 @@ class Index extends \Controller
     
     public function login(\Base $fw, $params)
     {
-        
+        $this->_render('index/login.htm');
     }
     
     public function loginPost(\Base $fw, $params)

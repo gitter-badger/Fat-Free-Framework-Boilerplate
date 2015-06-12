@@ -1,0 +1,15 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ @site.title }}</title>
+</head>
+<body>
+<h1>{{ @site.title }}</h1>
+
+<form action="/login" method="post">
+    <input type="text" name="login" placeholder="Логин или E-Mail"/>
+    <input type="password" name="password" placeholder="Пароль"/>
+    <button type="submit">Войти</button>
+</form>
+</body>
+</html>
