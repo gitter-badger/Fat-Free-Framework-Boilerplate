@@ -49,6 +49,35 @@ class Index extends \Controller
         $this->_render('index/login.htm');
     }
 
+    public function reset(\Base $fw, $params)
+    {
+        if ($params['code']) {
+            $fw->reroute('/'); // TODO: переписать логику
+        }
+
+        $this->_render('index/reset.htm');
+    }
+
+    public function resetPost(\Base $fw)
+    {
+        $user = new User();
+        $login = $fw->get('POST.login');
+
+        if (strpos($login, '@')) {
+            $user->load(array('email = ? AND deleted_date IS NULL', $login));
+        } else {
+            $user->load(array('login = ? AND deleted_date IS NULL', $login));
+        }
+
+        if ($user->id) {
+            echo "<a href='" . $fw->get('site.url') . 'reset/' . md5(microtime(true)) . "'>Ссылка для сбороса</a>"; // TODO: должна выполняться отправка ссылки в письме
+        } else {
+            $fw->set('error', 'Пользователь с данным логином или E-Mail не найден');
+        }
+
+        $this->_render('index/reset.htm');
+    }
+
     public function registration(\Base $fw)
     {
 

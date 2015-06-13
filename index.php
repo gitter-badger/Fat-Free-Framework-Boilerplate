@@ -6,7 +6,8 @@ $fw = require('lib/base.php');
 
 $fw->mset(array(
     'UI' => 'app/view/',
-    'AUTOLOAD' => 'app/'
+    'AUTOLOAD' => 'app/',
+    'site.url' => $fw->get('SCHEME') . '://' . $fw->get('HOST') . $fw->get('BASE') . '/'
 ));
 
 $fw->config('config.ini');
@@ -26,5 +27,8 @@ $user->loadCurrent();
 
 $fw->run();
 
+// TODO: Выделить в отдельный хелпер.
+// Добавить разметку для отображения внизу экрана.
+// Отображать подробную информацию только при режиме отладки больше единицы
 echo round((microtime(true) - $time) * 1000, 0) . ' ms' . '<br/>';
 echo round(memory_get_peak_usage(true) / 1024, 0) . ' кБ';
