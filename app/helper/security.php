@@ -294,4 +294,23 @@ class Security extends \Prefab
         }
         return $pass;
     }
+
+    /**
+     * Генерирует случайный пароль
+     * @param int $length
+     * @return null|string
+     */
+    function generatePassword($length = 6)
+    {
+        // Символы, которые будут использоваться в пароле
+        $chars = "qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP";
+        $size = strlen($chars) - 1;
+
+        $password = null;
+
+        while ($length--)
+            $password .= $chars[rand(0, $size)];
+
+        return $password;
+    }
 }
