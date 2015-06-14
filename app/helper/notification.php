@@ -54,6 +54,27 @@ class Notification extends \Prefab
         return mail($to, $subject, $body, $headers);
     }
 
+    public function user_reset($user_id)
+    {
+        $fw = \Base::instance();
+        if ($fw->get('mail.from')) {
+            $user = new User();
+            $user->load($user_id);
+
+            if (!$user->id) {
+                throw new \Exception("Пользователь не найден");
+            }
+
+            $fw->set('user', $user);
+            $text = $this->_render('notification/user_reset.txt');
+            $body = $this->_render('notification/user_reset.htm');
+
+            // Отправка письма пользователю
+            $subject = "Сброс Вашего пароля - " . $fw->get('site.name');
+            $this->_utf8mail($user->email, $subject, $body, $text);
+        }
+    }
+
     /**
      * Отрисовываем шаблон и возвращаем результат
      * @param $file
