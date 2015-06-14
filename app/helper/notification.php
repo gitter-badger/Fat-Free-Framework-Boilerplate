@@ -54,7 +54,12 @@ class Notification extends \Prefab
         return mail($to, $subject, $body, $headers);
     }
 
-    public function user_reset($user_id)
+    /**
+     * Отправка письма для смены пароля
+     * @param $user_id
+     * @throws \Exception
+     */
+    public function userReset($user_id)
     {
         $fw = \Base::instance();
         if ($fw->get('mail.from')) {

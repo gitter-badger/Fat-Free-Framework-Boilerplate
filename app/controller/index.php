@@ -67,7 +67,7 @@ class Index extends \Controller
         }
 
         if ($user->id) {
-            Notification::instance()->user_reset($user->id);
+            Notification::instance()->userReset($user->id);
             echo "<a href='" . $fw->get('site.url') . 'reset/' . md5(microtime(true)) . "'>Ссылка для сбороса</a>"; // TODO: должна выполняться отправка ссылки в письме
         } else {
             $fw->set('error', 'Пользователь с данным логином или E-Mail не найден');
@@ -76,7 +76,7 @@ class Index extends \Controller
         $this->_render('index/reset.htm');
     }
 
-    public function complete_reset(\Base $fw, $params)
+    public function completeReset(\Base $fw, $params)
     {
         if ($params['hash']) {
             $fw->reroute('/'); // TODO: переписать логику
