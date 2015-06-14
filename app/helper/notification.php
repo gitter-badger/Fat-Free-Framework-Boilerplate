@@ -81,6 +81,32 @@ class Notification extends \Prefab
     }
 
     /**
+     * Отправка нового пароля пользователю
+     * @param $user_id
+     * @param $password
+     * @throws \Exception
+     */
+    public function userSendPassword($user_id, $password)
+    {
+        $fw = \Base::instance();
+        if ($fw->get('mail.from')) {
+            $user = new User();
+            $user->load(array('id = ? AND deleted_date IS NULL', $user_id));
+
+            if (!$user->id) {
+                throw new \Exception("Пользователь не найден");
+            } else {
+                $fw->set('password', $password);
+                $text = $this->_render('notification/user_send_password.txt');
+                $body = $this->_render('notification/user_send_password.htm');
+
+                $subject = "Новый пароль пользователя - " . $fw->get('site.name');
+                $this->_utf8mail($user->email, $subject, $body, $text);
+            }
+        }
+    }
+
+    /**
      * Отрисовываем шаблон и возвращаем результат
      * @param $file
      * @param string $mime

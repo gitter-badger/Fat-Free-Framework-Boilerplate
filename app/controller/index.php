@@ -68,7 +68,6 @@ class Index extends \Controller
 
         if ($user->id) {
             Notification::instance()->userReset($user->id);
-            echo "<a href='" . $fw->get('site.url') . 'reset/' . md5(microtime(true)) . "'>Ссылка для сбороса</a>"; // TODO: должна выполняться отправка ссылки в письме
         } else {
             $fw->set('error', 'Пользователь с данным логином или E-Mail не найден');
         }
@@ -78,8 +77,25 @@ class Index extends \Controller
 
     public function completeReset(\Base $fw, $params)
     {
-        if ($params['hash']) {
-            $fw->reroute('/'); // TODO: переписать логику
+        if ($params['id'] && $params['hash']) {
+            $user = new User();
+            $user->load(array('id = ? AND deleted_date IS NULL', $params['id']));
+            if ($user->id) {
+                if (md5($user->password) == $params['hash']) {
+                    $password = Security::instance()->generatePassword();
+                    $user->password = Security::instance()->password_hash($password, PASSWORD_BCRYPT);
+                    if ($user->save()) {
+                        Notification::instance()->userSendPassword($user->id, $password);
+                        $fw->reroute('/login'); // TODO: сообщение о успешной отправке письма
+                    } else {
+                        echo "По какой-то причине не удалось сохранить данные пользователя";
+                    }
+                }
+            } else {
+                echo "Пользователь с данным id не найден в системе";
+            }
+        } else {
+            echo "Не переданы обязательные параметры";
         }
     }
 
